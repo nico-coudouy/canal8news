@@ -65,9 +65,7 @@ body {
   letter-spacing: 2px;
 }
 @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
 .content { padding: 16px; max-width: 640px; margin: 0 auto; }
-
 .section-title {
   font-size: 10px;
   font-weight: 700;
@@ -141,12 +139,10 @@ body {
 .bar-red { background: #c8102e; }
 .bar-orange { background: #e07030; }
 .bar-green { background: #2a9d60; }
-.bar-blue { background: #2a6dd9; }
 .bar-yellow { background: #d4a017; }
 .col-warning { color: #e07030; }
 .col-ok { color: #2a9d60; }
 .col-crit { color: #c8102e; }
-
 .frase-card {
   background: #161616;
   border: 1px solid #222;
@@ -204,7 +200,6 @@ body {
 .suerte-emoji { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
 .suerte-text { font-size: 14px; color: #aaa; line-height: 1.6; }
 .suerte-text strong { color: #f0ede6; font-weight: 500; }
-
 .mundial-card {
   background: #161616;
   border: 1px solid #222;
@@ -233,7 +228,6 @@ body {
   margin-top: 8px;
   font-style: italic;
 }
-
 .programa-card {
   background: #161616;
   border: 1px solid #222;
@@ -247,19 +241,13 @@ body {
   gap: 10px;
   margin-bottom: 8px;
 }
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 .dot-red { background: #c8102e; animation: pulso 1.2s infinite; }
 .dot-green { background: #2a9d60; }
 .dot-yellow { background: #d4a017; animation: pulso 1.5s infinite; }
 @keyframes pulso { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
 .programa-nombre { font-size: 15px; font-weight: 500; color: #f0ede6; }
 .programa-sub { font-size: 12px; color: #666; margin-top: 2px; line-height: 1.5; }
-
 .vacaciones-card {
   background: #161616;
   border: 1px solid #222;
@@ -276,7 +264,6 @@ body {
   font-weight: 700;
   margin-bottom: 6px;
 }
-
 .algo-mas {
   background: #161616;
   border: 1px dashed #333;
@@ -288,18 +275,6 @@ body {
   line-height: 1.65;
 }
 .algo-mas strong { color: #f0ede6; font-weight: 500; }
-
-.cafe-card {
-  background: #161616;
-  border: 1px solid #222;
-  border-radius: 8px;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-}
-
 .btn-refresh {
   display: block;
   width: 100%;
@@ -321,11 +296,122 @@ body {
 .btn-refresh:hover { background: #a0001e; }
 .btn-refresh:active { transform: scale(0.98); }
 
-.divider {
-  border: none;
-  border-top: 1px solid #1e1e1e;
-  margin: 4px 0;
+/* ── MEMES ── */
+.memes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
 }
+.meme-item {
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+  position: relative;
+}
+.meme-item:hover { border-color: #c8102e; transform: scale(1.02); }
+.meme-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+.meme-item .meme-name {
+  padding: 6px 8px;
+  font-size: 10px;
+  color: #555;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+.memes-empty {
+  background: #161616;
+  border: 1px dashed #333;
+  border-radius: 8px;
+  padding: 28px 16px;
+  text-align: center;
+  color: #444;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.memes-empty strong { color: #666; display: block; margin-bottom: 6px; font-size: 15px; }
+.memes-loading {
+  text-align: center;
+  color: #444;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 24px 0;
+}
+.memes-error {
+  background: #161616;
+  border: 1px solid #2a1a1a;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 12px;
+  color: #664;
+  line-height: 1.6;
+}
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+.lightbox-name {
+  color: #555;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+  font-family: sans-serif;
+}
+.lightbox-close:hover { color: #fff; }
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.07);
+  border: none;
+  color: #aaa;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.lightbox-nav:hover { background: rgba(255,255,255,0.15); color: #fff; }
+.lightbox-prev { left: 10px; }
+.lightbox-next { right: 10px; }
 </style>
 </head>
 <body>
@@ -342,14 +428,12 @@ body {
 
   <button class="btn-refresh" onclick="generarDia()">↺ &nbsp; Nuevo día en el canal</button>
 
-  <!-- CAOS DEL DIA -->
   <div class="section-title">El caos del día</div>
   <div class="caos-card">
     <div class="caos-label">Situación en curso</div>
     <div class="caos-text" id="caos-text">...</div>
   </div>
 
-  <!-- ESTADO DEL CANAL -->
   <div class="section-title">Estado del canal</div>
   <div class="grid-2">
     <div class="mini-card">
@@ -378,7 +462,6 @@ body {
     </div>
   </div>
 
-  <!-- MUNDIAL -->
   <div class="section-title">Cuenta regresiva · Mundial 2026</div>
   <div class="mundial-card">
     <div class="mundial-dias" id="mundial-dias">...</div>
@@ -386,7 +469,6 @@ body {
     <div class="mundial-sub" id="mundial-sub">...</div>
   </div>
 
-  <!-- PROGRAMA HABLEMOS CLARO -->
   <div class="section-title">¿Grabamos hoy?</div>
   <div class="programa-card">
     <div class="programa-estado">
@@ -396,21 +478,18 @@ body {
     <div class="programa-sub" id="prog-sub">...</div>
   </div>
 
-  <!-- VACACIONES -->
   <div class="section-title">Alerta cobertura</div>
   <div class="vacaciones-card">
     <div class="vacaciones-label">Vacaciones en curso</div>
     <div class="caos-text" id="vacaciones-text">...</div>
   </div>
 
-  <!-- FRASE DEL DIA -->
   <div class="section-title">Frase del día</div>
   <div class="frase-card">
     <div class="frase-quote" id="frase-text">...</div>
     <div class="frase-autor" id="frase-autor">— Canal 8</div>
   </div>
 
-  <!-- SWITCHER -->
   <div class="section-title">Turno switcher</div>
   <div class="switcher-card">
     <div class="mini-label">Tiempo en el switcher</div>
@@ -418,27 +497,41 @@ body {
     <div class="switcher-sub" id="switcher-sub">Sensación: llevan 3 días acá adentro</div>
   </div>
 
-  <!-- TAREA IMPOSIBLE -->
   <div class="section-title">Tarea imposible del día</div>
   <div class="caos-card">
     <div class="caos-label">Presupuesto: $0 — Costo cero obligatorio</div>
     <div class="caos-text" id="tarea-text">...</div>
   </div>
 
-  <!-- HOROSCOPO -->
   <div class="section-title">Horóscopo del canal</div>
   <div class="suerte-card">
     <div class="suerte-emoji" id="horoscopo-emoji">🎬</div>
     <div class="suerte-text" id="horoscopo-text">Cargando predicción...</div>
   </div>
 
-  <!-- Y ALGO MAS -->
   <div class="section-title">Y algo más que surja</div>
   <div class="algo-mas" id="algo-mas">...</div>
 
+  <!-- MEMES -->
+  <div class="section-title">Memes del canal</div>
+  <div id="memes-container"><div class="memes-loading">Cargando memes...</div></div>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightboxBtn()">×</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navMeme(-1)">‹</button>
+  <img id="lightbox-img" src="" alt="meme">
+  <div class="lightbox-name" id="lightbox-name"></div>
+  <button class="lightbox-nav lightbox-next" onclick="navMeme(1)">›</button>
 </div>
 
 <script>
+const GITHUB_USER = 'nico-coudouy';
+const GITHUB_REPO = 'canal8news';
+const MEMES_FOLDER = 'memes';
+
 const CAOS = [
   "El micrófono del conductor se quedó sin batería 3 minutos antes del inicio.",
   "El tele de control no enciende. Nadie sabe por qué. Tampoco nadie lo va a investigar hoy.",
@@ -466,7 +559,6 @@ const CAOS = [
   "El camarógrafo del móvil llegó pero olvidó la tarjeta de memoria. Improvisación máxima.",
   "El conductor improvisó tanto que el productor entró al estudio con una hoja en blanco y cara de nada.",
 ];
-
 const FRASES = [
   { t: "Han pasado 5 minutos de las 11 de la mañana, en este su canal 8.", a: "— El conductor de la mañana, como todos los días" },
   { t: "Y algo más que surja.", a: "— El productor, en cada reunión, sin falta" },
@@ -483,7 +575,6 @@ const FRASES = [
   { t: "Sí, lo cubro yo mientras está de vacaciones. Sin problema.", a: "— Alguien que sí tiene problema" },
   { t: "El mundial está a la vuelta de la esquina.", a: "— Producción, hace meses, ilusamente" },
 ];
-
 const TAREAS = [
   "Transmitir en vivo desde el fondo del mar. Sin cámara sumergible. Sin presupuesto.",
   "Editar 3 horas de material en 20 minutos. Con calidad 4K. Y subtítulos.",
@@ -498,7 +589,6 @@ const TAREAS = [
   "Liberar espacio en el disco sin borrar nada útil. El universo no lo permite.",
   "Producir el video especial de cuenta regresiva número 57 para el Mundial. Con emoción.",
 ];
-
 const HOROSCOPOS = [
   { e: "📡", t: "<strong>Señal favorable.</strong> La cámara 2 va a funcionar perfectamente hoy. Nadie lo va a aprovechar porque van a mirar la 1 todo el tiempo." },
   { e: "🔥", t: "<strong>El coordinador alcanza nivel crítico</strong> antes del mediodía. Mantenerse a distancia razonable. No preguntar si 'está todo bien'." },
@@ -513,7 +603,6 @@ const HOROSCOPOS = [
   { e: "🎭", t: "<strong>Hablemos Claro</strong> no hablará claro hoy tampoco. Las estrellas llevan tiempo resignadas con esto." },
   { e: "🏖️", t: "<strong>Alguien del equipo piensa en vacaciones.</strong> Otro alguien ya está cubriendo las vacaciones de ese alguien. El ciclo continúa." },
 ];
-
 const ALGO_MAS = [
   "<strong>Dato del día:</strong> El switcher tiene la capacidad de hacer que 4 horas parezcan 4 días. Los físicos no lo comprenden.",
   "<strong>Recordatorio:</strong> Si el tele no enciende, probá apagarlo y encenderlo. Si sigue sin funcionar, quedárselo mirando no ayuda. Pero es lo que vamos a hacer igual.",
@@ -530,7 +619,6 @@ const ALGO_MAS = [
   "<strong>Hablemos Claro, internamente:</strong> El programa se llama así como ejercicio de aspiración. Es un objetivo, no una descripción.",
   "<strong>Clasificación oficial:</strong> Existen dos tipos de personas en el canal: las que saben si hoy graban Hablemos Claro y las que mienten que saben.",
 ];
-
 const VACACIONES = [
   "Alguien se tomó vacaciones. Nadie sabe exactamente quién lo cubre. Hay tres nombres circulando y ninguno fue confirmado.",
   "El camarógrafo está de vacaciones. Lo cubre el editor. El editor también está editando. Y a veces dirige. Todo bien.",
@@ -540,7 +628,6 @@ const VACACIONES = [
   "Esta semana hay dos personas de vacaciones. Se cubre entre todos. 'Entre todos' significa tres personas haciendo el trabajo de cinco.",
   "El que está de vacaciones mandó un mensaje preguntando cómo va todo. Le respondieron 'bien' para no arruinarle el descanso.",
 ];
-
 const PROGRAMAS = [
   { dot: "dot-red", nom: "Hablemos Claro — En grabación", sub: "Se graba hoy. Los temas están definidos. La claridad, por confirmar como siempre." },
   { dot: "dot-yellow", nom: "Hablemos Claro — Estado incierto", sub: "Nadie confirmó si graban hoy. Hay camarógrafos parados y un productor que 'ya va a avisar'." },
@@ -549,7 +636,6 @@ const PROGRAMAS = [
   { dot: "dot-red", nom: "Grabación cancelada", sub: "No graban ni Hablemos Claro ni Agenda Real. El motivo es 'una serie de cosas'. El equipo técnico ya lo sabía." },
   { dot: "dot-green", nom: "Hablemos Claro — Confirmado", sub: "Raro, pero está confirmado. Empiezan a las 15. Hoy sí se habla. Un poco más claro que la semana pasada." },
 ];
-
 const TICKERS = [
   "SEÑAL AL AIRE — DISCO AL 97% — SE BUSCA QUIEN BORRE — FRANCO TIENE MATE — Y ALGO MÁS QUE SURJA",
   "URGENTE: EL TELE NO ENCIENDE — COORDINADOR EN LLAMAS — CONDUCTOR IMPROVISANDO — VOOOOOY",
@@ -571,26 +657,19 @@ function diasParaMundial() {
 
 function generarDia() {
   document.getElementById('caos-text').textContent = rand(CAOS);
-
   const f = rand(FRASES);
   document.getElementById('frase-text').textContent = '\u201c' + f.t + '\u201d';
   document.getElementById('frase-autor').textContent = f.a;
-
   document.getElementById('tarea-text').textContent = rand(TAREAS);
-
   const h = rand(HOROSCOPOS);
   document.getElementById('horoscopo-emoji').textContent = h.e;
   document.getElementById('horoscopo-text').innerHTML = h.t;
-
   document.getElementById('algo-mas').innerHTML = rand(ALGO_MAS);
   document.getElementById('vacaciones-text').textContent = rand(VACACIONES);
-
   const p = rand(PROGRAMAS);
-  const dotEl = document.getElementById('prog-dot');
-  dotEl.className = 'dot ' + p.dot;
+  document.getElementById('prog-dot').className = 'dot ' + p.dot;
   document.getElementById('prog-nombre').textContent = p.nom;
   document.getElementById('prog-sub').textContent = p.sub;
-
   document.getElementById('ticker-text').textContent = rand(TICKERS);
 
   const disco = randInt(80, 99);
@@ -654,10 +733,79 @@ function actualizarSwitcher() {
     'Sensación: llevan 3 días sin salir. El mundo exterior ya no existe.';
 }
 
+// ── MEMES ──
+const IMAGE_EXTS = ['jpg','jpeg','png','gif','webp'];
+let allMemes = [];
+let lightboxIndex = 0;
+
+async function cargarMemes() {
+  const container = document.getElementById('memes-container');
+  try {
+    const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${MEMES_FOLDER}`;
+    const res = await fetch(url);
+    if (res.status === 404) {
+      container.innerHTML = `<div class="memes-empty"><strong>Carpeta /memes vacía o inexistente</strong>Creá la carpeta <code>memes/</code> en el repo y subí imágenes ahí.<br>Aparecen acá automáticamente.</div>`;
+      return;
+    }
+    if (!res.ok) throw new Error('GitHub API error ' + res.status);
+    const files = await res.json();
+    const imgs = files.filter(f => {
+      const ext = f.name.split('.').pop().toLowerCase();
+      return IMAGE_EXTS.includes(ext);
+    });
+    if (imgs.length === 0) {
+      container.innerHTML = `<div class="memes-empty"><strong>No hay memes todavía</strong>Subí imágenes a la carpeta <code>memes/</code> del repo y aparecen acá solos.</div>`;
+      return;
+    }
+    allMemes = imgs;
+    const grid = document.createElement('div');
+    grid.className = 'memes-grid';
+    imgs.forEach((img, i) => {
+      const rawUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${MEMES_FOLDER}/${encodeURIComponent(img.name)}`;
+      const item = document.createElement('div');
+      item.className = 'meme-item';
+      item.onclick = () => openLightbox(i);
+      item.innerHTML = `<img src="${rawUrl}" alt="${img.name}" loading="lazy"><div class="meme-name">${img.name}</div>`;
+      grid.appendChild(item);
+    });
+    container.innerHTML = '';
+    container.appendChild(grid);
+  } catch(e) {
+    container.innerHTML = `<div class="memes-error">No se pudieron cargar los memes. Revisá que el repo sea público y que exista la carpeta <code>memes/</code>.<br><small>${e.message}</small></div>`;
+  }
+}
+
+function openLightbox(index) {
+  lightboxIndex = index;
+  const img = allMemes[index];
+  const rawUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${MEMES_FOLDER}/${encodeURIComponent(img.name)}`;
+  document.getElementById('lightbox-img').src = rawUrl;
+  document.getElementById('lightbox-name').textContent = img.name;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightboxBtn();
+}
+function closeLightboxBtn() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+function navMeme(dir) {
+  lightboxIndex = (lightboxIndex + dir + allMemes.length) % allMemes.length;
+  openLightbox(lightboxIndex);
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') navMeme(1);
+  if (e.key === 'ArrowLeft') navMeme(-1);
+  if (e.key === 'Escape') closeLightboxBtn();
+});
+
 generarDia();
 actualizarFecha();
 setInterval(actualizarFecha, 30000);
 setInterval(actualizarSwitcher, 1000);
+cargarMemes();
 </script>
 </body>
 </html>
