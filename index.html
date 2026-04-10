@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canal 8 — Dashboard del Caos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #f0ede6;
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+.header {
+  background: #c8102e;
+  padding: 14px 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.logo span {
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  display: block;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.65);
+  text-transform: uppercase;
+}
+.date-badge {
+  background: rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+  text-align: right;
+  line-height: 1.5;
+}
+.ticker-wrap {
+  background: #111;
+  border-top: 2px solid #c8102e;
+  padding: 7px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: scroll 32s linear infinite;
+  padding-left: 100%;
+  color: #c8102e;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+.content { padding: 16px; max-width: 640px; margin: 0 auto; }
+
+.section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 10px;
+  margin-top: 22px;
+}
+.caos-card {
+  background: #161616;
+  border: 1px solid #222;
+  border-left: 4px solid #c8102e;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+.caos-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #c8102e;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.caos-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #f0ede6;
+  line-height: 1.45;
+}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mini-card {
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 14px;
+}
+.mini-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #555;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.mini-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  line-height: 1;
+  color: #f0ede6;
+}
+.mini-sub {
+  font-size: 11px;
+  color: #666;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+.bar-bg {
+  background: #222;
+  border-radius: 4px;
+  height: 7px;
+  margin: 8px 0 4px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1.2s ease;
+}
+.bar-red { background: #c8102e; }
+.bar-orange { background: #e07030; }
+.bar-green { background: #2a9d60; }
+.bar-blue { background: #2a6dd9; }
+.bar-yellow { background: #d4a017; }
+.col-warning { color: #e07030; }
+.col-ok { color: #2a9d60; }
+.col-crit { color: #c8102e; }
+
+.frase-card {
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 18px 16px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.frase-quote {
+  font-size: 18px;
+  font-style: italic;
+  color: #f0ede6;
+  line-height: 1.5;
+  font-weight: 400;
+}
+.frase-autor {
+  font-size: 11px;
+  color: #555;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.switcher-card {
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.switcher-time {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 54px;
+  color: #c8102e;
+  line-height: 1;
+  letter-spacing: 3px;
+}
+.switcher-sub {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.suerte-card {
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.suerte-emoji { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+.suerte-text { font-size: 14px; color: #aaa; line-height: 1.6; }
+.suerte-text strong { color: #f0ede6; font-weight: 500; }
+
+.mundial-card {
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.mundial-dias {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: #d4a017;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+.mundial-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #666;
+  margin-top: 4px;
+}
+.mundial-sub {
+  font-size: 13px;
+  color: #888;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.programa-card {
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+.programa-estado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-red { background: #c8102e; animation: pulso 1.2s infinite; }
+.dot-green { background: #2a9d60; }
+.dot-yellow { background: #d4a017; animation: pulso 1.5s infinite; }
+@keyframes pulso { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+.programa-nombre { font-size: 15px; font-weight: 500; color: #f0ede6; }
+.programa-sub { font-size: 12px; color: #666; margin-top: 2px; line-height: 1.5; }
+
+.vacaciones-card {
+  background: #161616;
+  border: 1px solid #222;
+  border-left: 4px solid #d4a017;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+.vacaciones-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #d4a017;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.algo-mas {
+  background: #161616;
+  border: 1px dashed #333;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.65;
+}
+.algo-mas strong { color: #f0ede6; font-weight: 500; }
+
+.cafe-card {
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.btn-refresh {
+  display: block;
+  width: 100%;
+  background: #c8102e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 24px;
+  margin-bottom: 10px;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-refresh:hover { background: #a0001e; }
+.btn-refresh:active { transform: scale(0.98); }
+
+.divider {
+  border: none;
+  border-top: 1px solid #1e1e1e;
+  margin: 4px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">Canal 8<span>Mar del Plata</span></div>
+  <div class="date-badge" id="date-badge">...</div>
+</div>
+<div class="ticker-wrap">
+  <span class="ticker-inner" id="ticker-text">SEÑAL AL AIRE — DISCO AL 97% — SE BUSCA QUIEN BORRE — FRANCO TIENE MATE — Y ALGO MÁS QUE SURJA</span>
+</div>
+
+<div class="content">
+
+  <!-- CAOS DEL DIA -->
+  <div class="section-title">El caos del día</div>
+  <div class="caos-card">
+    <div class="caos-label">Situación en curso</div>
+    <div class="caos-text" id="caos-text">...</div>
+  </div>
+
+  <!-- ESTADO DEL CANAL -->
+  <div class="section-title">Estado del canal</div>
+  <div class="grid-2">
+    <div class="mini-card">
+      <div class="mini-label">Disco</div>
+      <div class="mini-value" id="disco-val">--%</div>
+      <div class="bar-bg"><div class="bar-fill bar-red" id="disco-bar" style="width:0%"></div></div>
+      <div class="mini-sub" id="disco-sub">Verificando...</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">Coordinador</div>
+      <div class="mini-value" id="coord-val">--%</div>
+      <div class="bar-bg"><div class="bar-fill bar-orange" id="coord-bar" style="width:0%"></div></div>
+      <div class="mini-sub" id="coord-sub">Midiendo llamas...</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">Mate de Franco</div>
+      <div class="mini-value" id="mate-val">--%</div>
+      <div class="bar-bg"><div class="bar-fill bar-green" id="mate-bar" style="width:0%"></div></div>
+      <div class="mini-sub" id="mate-sub">Consultando...</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">Café disponible</div>
+      <div class="mini-value" id="cafe-val">--%</div>
+      <div class="bar-bg"><div class="bar-fill bar-yellow" id="cafe-bar" style="width:0%"></div></div>
+      <div class="mini-sub" id="cafe-sub">Evaluando reservas...</div>
+    </div>
+  </div>
+
+  <!-- MUNDIAL -->
+  <div class="section-title">Cuenta regresiva · Mundial 2026</div>
+  <div class="mundial-card">
+    <div class="mundial-dias" id="mundial-dias">...</div>
+    <div class="mundial-label">días para el mundial</div>
+    <div class="mundial-sub" id="mundial-sub">...</div>
+  </div>
+
+  <!-- PROGRAMA HABLEMOS CLARO -->
+  <div class="section-title">¿Grabamos hoy?</div>
+  <div class="programa-card">
+    <div class="programa-estado">
+      <div class="dot" id="prog-dot"></div>
+      <div class="programa-nombre" id="prog-nombre">Verificando señal...</div>
+    </div>
+    <div class="programa-sub" id="prog-sub">...</div>
+  </div>
+
+  <!-- VACACIONES -->
+  <div class="section-title">Alerta cobertura</div>
+  <div class="vacaciones-card">
+    <div class="vacaciones-label">Vacaciones en curso</div>
+    <div class="caos-text" id="vacaciones-text">...</div>
+  </div>
+
+  <!-- FRASE DEL DIA -->
+  <div class="section-title">Frase del día</div>
+  <div class="frase-card">
+    <div class="frase-quote" id="frase-text">...</div>
+    <div class="frase-autor" id="frase-autor">— Canal 8</div>
+  </div>
+
+  <!-- SWITCHER -->
+  <div class="section-title">Turno switcher</div>
+  <div class="switcher-card">
+    <div class="mini-label">Tiempo en el switcher</div>
+    <div class="switcher-time" id="switcher-time">00:00:00</div>
+    <div class="switcher-sub" id="switcher-sub">Sensación: llevan 3 días acá adentro</div>
+  </div>
+
+  <!-- TAREA IMPOSIBLE -->
+  <div class="section-title">Tarea imposible del día</div>
+  <div class="caos-card">
+    <div class="caos-label">Presupuesto: $0 — Costo cero obligatorio</div>
+    <div class="caos-text" id="tarea-text">...</div>
+  </div>
+
+  <!-- HOROSCOPO -->
+  <div class="section-title">Horóscopo del canal</div>
+  <div class="suerte-card">
+    <div class="suerte-emoji" id="horoscopo-emoji">🎬</div>
+    <div class="suerte-text" id="horoscopo-text">Cargando predicción...</div>
+  </div>
+
+  <!-- Y ALGO MAS -->
+  <div class="section-title">Y algo más que surja</div>
+  <div class="algo-mas" id="algo-mas">...</div>
+
+  <button class="btn-refresh" onclick="generarDia()">↺ &nbsp; Nuevo día en el canal</button>
+
+</div>
+
+<script>
+const CAOS = [
+  "El micrófono del conductor se quedó sin batería 3 minutos antes del inicio.",
+  "El plasma de control no enciende. Nadie sabe por qué. Tampoco nadie lo va a investigar hoy.",
+  "El disco está al 97%. Hay que borrar algo. Nadie quiere ser quien borra.",
+  "El conductor del mediodía se fue al carajo en el bloque de política. Duró 12 minutos extra.",
+  "Alguien convirtió un video a 360p para liberar espacio. Era el plano de apertura del informativo.",
+  "El switcher perdió la señal de cámara 2 justo en el momento menos oportuno posible.",
+  "El director gritó 'VOOOOY' pero nadie entendió si era para entrar al aire o para otra cosa.",
+  "La nota del deportivo se cortó 8 segundos antes del final. El periodista hizo su mejor morisqueta.",
+  "Llegó un mail con el asunto: 'Reunión urgente — y algo más que surja'. El 'algo más' fue todo.",
+  "El que siempre llega tarde llegó tarde. Nadie se sorprendió. El registro marca 17 minutos.",
+  "Se cayó internet 40 segundos antes de una transmisión en vivo. Se rezó.",
+  "El conductor de la mañana sumó 7 muletillas en un solo bloque. Nuevo récord.",
+  "Franco se quedó sin yerba. El canal entró en estado de alerta naranja.",
+  "El jefe revisó la edición. Había un error de 2 fotogramas. Lo vio igual.",
+  "La nota grabada ayer 'con tiempo de sobra' todavía no está editada.",
+  "El generador de texto del zócalo se trabó en vivo con el nombre del entrevistado.",
+  "Alguien propuso hacer una cobertura especial. Presupuesto asignado: cero pesos.",
+  "La cámara 1 tiene un pixel roto justo en el centro. Llevan semanas 'por arreglarlo'.",
+  "Nadie sabe si hoy graban Hablemos Claro o Agenda Real. La reunión de producción no lo aclaró.",
+  "El café se terminó a las 10 de la mañana. El canal sobrevivió de milagro hasta el mediodía.",
+  "El editor preguntó si el material del evento de ayer fue guardado. Silencio incómodo.",
+  "Se hicieron 4 videos de cuenta regresiva para el Mundial. Falta mucho todavía. Muchísimo.",
+  "Alguien se tomó vacaciones sin dejar el contacto de quien lo cubre. Clásico.",
+  "El camarógrafo del móvil llegó pero olvidó la tarjeta de memoria. Improvisación máxima.",
+  "El conductor improvisó tanto que el productor entró al estudio con una hoja en blanco y cara de nada.",
+];
+
+const FRASES = [
+  { t: "Han pasado 5 minutos de las 11 de la mañana, en este su canal 8.", a: "— El conductor de la mañana, como todos los días" },
+  { t: "Y algo más que surja.", a: "— El productor, en cada reunión, sin falta" },
+  { t: "VOOOOY.", a: "— El director, voz gruesa, interpretación libre" },
+  { t: "¿Cuánto ocupa ese video? Convertilo a menor calidad.", a: "— El disco, indirectamente" },
+  { t: "Lo hacemos con costo cero y queda bárbaro.", a: "— Producción, con total convicción" },
+  { t: "Ya sé que llego tarde, pero llegué.", a: "— El que siempre llega tarde" },
+  { t: "Esa toma estuvo bien. Hacemos una más.", a: "— El director. Mentira, hacen 6." },
+  { t: "¿Franco tiene mate?", a: "— Todo el canal, todos los días, sin excepción" },
+  { t: "No se equivoquen.", a: "— El jefe, brevemente" },
+  { t: "Hoy grabamos Hablemos Claro. O Agenda Real. Fijate con producción.", a: "— Nadie que tenga certeza" },
+  { t: "Han pasado exactamente 47 segundos desde que empezó a arder.", a: "— El coordinador del mediodía, en llamas" },
+  { t: "¿Hay café? Necesito un café.", a: "— Alguien, a las 8:15, a las 10:30, y a las 14:00" },
+  { t: "Sí, lo cubro yo mientras está de vacaciones. Sin problema.", a: "— Alguien que sí tiene problema" },
+  { t: "El mundial está a la vuelta de la esquina.", a: "— Producción, hace meses, ilusamente" },
+];
+
+const TAREAS = [
+  "Transmitir en vivo desde el fondo del mar. Sin cámara sumergible. Sin presupuesto.",
+  "Editar 3 horas de material en 20 minutos. Con calidad 4K. Y subtítulos.",
+  "Grabar una nota de color en el exterior. Llueve. No hay paraguas. Costo cero.",
+  "Hacer una apertura cinematográfica para el informativo de hoy. Hoy. Ya.",
+  "Conseguir una entrevista exclusiva con el gobernador para las 13hs. Son las 12:45.",
+  "Instalar un estudio móvil en la cancha. El partido empieza en 30 minutos.",
+  "Crear un ciclo nuevo de entretenimiento para la tarde. Presupuesto: mate y ganas.",
+  "Graficar el contexto internacional con recursos propios. Solo hay stickers y PowerPoint.",
+  "Cubrir la vacación de tres personas al mismo tiempo. Sin contratar a nadie.",
+  "Hacer una nota para Hablemos Claro que hable claro. Nivel de dificultad: extremo.",
+  "Liberar espacio en el disco sin borrar nada útil. El universo no lo permite.",
+  "Producir el video especial de cuenta regresiva número 57 para el Mundial. Con emoción.",
+];
+
+const HOROSCOPOS = [
+  { e: "📡", t: "<strong>Señal favorable.</strong> La cámara 2 va a funcionar perfectamente hoy. Nadie lo va a aprovechar porque van a mirar la 1 todo el tiempo." },
+  { e: "🔥", t: "<strong>El coordinador alcanza nivel crítico</strong> antes del mediodía. Mantenerse a distancia razonable. No preguntar si 'está todo bien'." },
+  { e: "🧉", t: "<strong>Franco tiene mate.</strong> Las estrellas alinean para una buena ronda. Recomendación: no pedir el cuarto seguido." },
+  { e: "💾", t: "<strong>El disco alcanza el 99%.</strong> Se recomienda borrar los rushes de esa nota que nadie va a usar. Sabés cuál es." },
+  { e: "⏰", t: "<strong>El que llega tarde, llega tarde.</strong> Las estrellas lo confirman desde hace años. Hoy trae medialunas, así que se perdona." },
+  { e: "🎙️", t: "<strong>Las pilas del micrófono están en su último día.</strong> El momento en que fallen será el peor posible. El cosmos lo sabe." },
+  { e: "🎬", t: "<strong>VOOOOY.</strong> El director está inspirado hoy. Inspirado y dramático. Preparate para 4 tomas extra de cada plano." },
+  { e: "📺", t: "<strong>El informativo sale redondo.</strong> Solo si nadie improvisa. Probabilidad de que alguien improvise: 100%." },
+  { e: "☕", t: "<strong>El café trae claridad mental.</strong> Sin él, el canal entra en modo supervivencia antes de las 10. Las estrellas aconsejan hacer más de lo necesario." },
+  { e: "🏆", t: "<strong>El Mundial se acerca.</strong> Despacio, pero se acerca. Las estrellas ven más videos de cuenta regresiva en el horizonte." },
+  { e: "🎭", t: "<strong>Hablemos Claro</strong> no hablará claro hoy tampoco. Las estrellas llevan tiempo resignadas con esto." },
+  { e: "🏖️", t: "<strong>Alguien del equipo piensa en vacaciones.</strong> Otro alguien ya está cubriendo las vacaciones de ese alguien. El ciclo continúa." },
+];
+
+const ALGO_MAS = [
+  "<strong>Dato del día:</strong> El switcher tiene la capacidad de hacer que 4 horas parezcan 4 días. Los físicos no lo comprenden.",
+  "<strong>Recordatorio:</strong> Si el plasma no enciende, probá apagarlo y encenderlo. Si sigue sin funcionar, quedárselo mirando no ayuda. Pero es lo que vamos a hacer igual.",
+  "<strong>Consejo del canal:</strong> Antes de borrar ese archivo del disco, leé el nombre dos veces. Tres si es viernes.",
+  "<strong>Reflexión:</strong> 'Costo cero' no significa que no cueste nada. Significa que lo cuesta alguien que no aparece en el presupuesto.",
+  "<strong>Estadística interna:</strong> El 73% de los problemas técnicos se resuelven solos si esperás 40 segundos. El otro 27% espera a que estés al aire.",
+  "<strong>Aviso importante:</strong> Franco no es el responsable del mate. Aunque sí es el que mejor lo hace. Son cosas distintas.",
+  "<strong>Pro tip:</strong> Si el conductor se va al carajo, no lo cortes. Dejalo terminar. El rating sube solo.",
+  "<strong>Observación:</strong> 'Y algo más que surja' fue responsable del 68% de las reuniones que se extendieron más de lo previsto.",
+  "<strong>Cifra del día:</strong> Hablemos Claro lleva 3 temporadas sin hablar claro. El promedio de claridad estimado: 12%. Las fuentes difieren.",
+  "<strong>Manual de vacaciones:</strong> Antes de irte, dejá por escrito quién te cubre. Si no lo hacés, el universo lo decide por vos. Y el universo elige mal.",
+  "<strong>Filosofía del café:</strong> El café no es una bebida en Canal 8. Es un mecanismo de defensa colectivo. Sin él, el canal funciona a media máquina y con cara larga.",
+  "<strong>Mundial update:</strong> Faltan días. Muchos. El video de cuenta regresiva número 47 fue grabado con la misma energía que el primero. Eso habla bien del equipo.",
+  "<strong>Hablemos Claro, internamente:</strong> El programa se llama así como ejercicio de aspiración. Es un objetivo, no una descripción.",
+  "<strong>Clasificación oficial:</strong> Existen dos tipos de personas en el canal: las que saben si hoy graban Hablemos Claro y las que mienten que saben.",
+];
+
+const VACACIONES = [
+  "Alguien se tomó vacaciones. Nadie sabe exactamente quién lo cubre. Hay tres nombres circulando y ninguno fue confirmado.",
+  "El camarógrafo está de vacaciones. Lo cubre el editor. El editor también está editando. Y a veces dirige. Todo bien.",
+  "Producción informa: quien cubre las vacaciones de esta semana es 'alguien que ya se habló'. Nadie recuerda la conversación.",
+  "Regresa de vacaciones hoy. El canal respiró. Aunque los primeros 40 minutos van a ser de ponerse al día con todo lo que pasó.",
+  "Vacaciones aprobadas. Cobertura: por definir. Fecha límite para definirla: ayer.",
+  "Esta semana hay dos personas de vacaciones. Se cubre entre todos. 'Entre todos' significa tres personas haciendo el trabajo de cinco.",
+  "El que está de vacaciones mandó un mensaje preguntando cómo va todo. Le respondieron 'bien' para no arruinarle el descanso.",
+];
+
+const PROGRAMAS = [
+  { dot: "dot-red", nom: "Hablemos Claro — En grabación", sub: "Se graba hoy. Los temas están definidos. La claridad, por confirmar como siempre." },
+  { dot: "dot-yellow", nom: "Hablemos Claro — Estado incierto", sub: "Nadie confirmó si graban hoy. Hay camarógrafos parados y un productor que 'ya va a avisar'." },
+  { dot: "dot-green", nom: "Agenda Real — En producción", sub: "Graban Agenda Real. Los invitados están convocados. El tema fue cambiado esta mañana." },
+  { dot: "dot-yellow", nom: "¿Hablemos Claro o Agenda Real?", sub: "Pregunta del día sin respuesta oficial. Se recomienda tener todo listo para los dos, por las dudas." },
+  { dot: "dot-red", nom: "Grabación cancelada", sub: "No graban ni Hablemos Claro ni Agenda Real. El motivo es 'una serie de cosas'. El equipo técnico ya lo sabía." },
+  { dot: "dot-green", nom: "Hablemos Claro — Confirmado", sub: "Raro, pero está confirmado. Empiezan a las 15. Hoy sí se habla. Un poco más claro que la semana pasada." },
+];
+
+const TICKERS = [
+  "SEÑAL AL AIRE — DISCO AL 97% — SE BUSCA QUIEN BORRE — FRANCO TIENE MATE — Y ALGO MÁS QUE SURJA",
+  "URGENTE: EL PLASMA NO ENCIENDE — COORDINADOR EN LLAMAS — CONDUCTOR IMPROVISANDO — VOOOOOY",
+  "COSTO CERO ACTIVADO — MICRÓFONO SIN BATERÍA — EL SWITCHER SIGUE AHÍ — CAFÉ AGOTADO — MATE DISPONIBLE",
+  "HOY EN EL CANAL 8 — ¿GRABAN HABLEMOS CLARO? — DISCO CRÍTICO — REUNIÓN SIN CIERRE CLARO",
+  "ÚLTIMA HORA: ALGUIEN SE TOMÓ VACACIONES — COBERTURA POR DEFINIR — MUNDIAL LEJOS TODAVÍA — CAFÉ URGENTE",
+  "BREAKING: EL CONDUCTOR SE FUE AL CARAJO — PRODUCCIÓN SONRÍE NERVIOSO — SWITCHER CONTANDO HORAS — TODO BIEN",
+];
+
+function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function randInt(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+
+function diasParaMundial() {
+  const mundial = new Date('2026-06-11');
+  const hoy = new Date();
+  hoy.setHours(0,0,0,0);
+  return Math.ceil((mundial - hoy) / (1000*60*60*24));
+}
+
+function generarDia() {
+  document.getElementById('caos-text').textContent = rand(CAOS);
+
+  const f = rand(FRASES);
+  document.getElementById('frase-text').textContent = '\u201c' + f.t + '\u201d';
+  document.getElementById('frase-autor').textContent = f.a;
+
+  document.getElementById('tarea-text').textContent = rand(TAREAS);
+
+  const h = rand(HOROSCOPOS);
+  document.getElementById('horoscopo-emoji').textContent = h.e;
+  document.getElementById('horoscopo-text').innerHTML = h.t;
+
+  document.getElementById('algo-mas').innerHTML = rand(ALGO_MAS);
+  document.getElementById('vacaciones-text').textContent = rand(VACACIONES);
+
+  const p = rand(PROGRAMAS);
+  const dotEl = document.getElementById('prog-dot');
+  dotEl.className = 'dot ' + p.dot;
+  document.getElementById('prog-nombre').textContent = p.nom;
+  document.getElementById('prog-sub').textContent = p.sub;
+
+  document.getElementById('ticker-text').textContent = rand(TICKERS);
+
+  const disco = randInt(80, 99);
+  document.getElementById('disco-val').textContent = disco + '%';
+  document.getElementById('disco-bar').style.width = disco + '%';
+  document.getElementById('disco-val').className = 'mini-value ' + (disco > 92 ? 'col-crit' : disco > 85 ? 'col-warning' : 'col-ok');
+  document.getElementById('disco-sub').textContent = disco > 95 ? '¡Borrá algo ahora!' : disco > 88 ? 'Zona de peligro.' : 'Por ahora respira.';
+
+  const coord = randInt(55, 100);
+  document.getElementById('coord-val').textContent = coord + '%';
+  document.getElementById('coord-bar').style.width = coord + '%';
+  document.getElementById('coord-val').className = 'mini-value ' + (coord > 90 ? 'col-crit' : 'col-warning');
+  document.getElementById('coord-sub').textContent = coord > 92 ? 'Llamas activas 🔥' : coord > 78 ? 'Punto de ignición' : 'Humo visible, ojo';
+
+  const mate = randInt(10, 100);
+  document.getElementById('mate-val').textContent = mate + '%';
+  document.getElementById('mate-bar').style.width = mate + '%';
+  document.getElementById('mate-val').className = 'mini-value ' + (mate > 60 ? 'col-ok' : mate > 30 ? 'col-warning' : 'col-crit');
+  document.getElementById('mate-sub').textContent = mate > 75 ? 'Yerba nueva. Día histórico.' : mate > 50 ? 'Bien cargado.' : mate > 25 ? 'Tercer lavado.' : 'Agua caliente y fe.';
+
+  const cafe = randInt(5, 100);
+  document.getElementById('cafe-val').textContent = cafe + '%';
+  document.getElementById('cafe-bar').style.width = cafe + '%';
+  document.getElementById('cafe-val').className = 'mini-value ' + (cafe > 60 ? 'col-ok' : cafe > 25 ? 'col-warning' : 'col-crit');
+  document.getElementById('cafe-sub').textContent = cafe > 70 ? 'Reservas óptimas.' : cafe > 35 ? 'Racionamiento sugerido.' : cafe > 15 ? 'Emergencia cafeínica.' : 'No hay café. Que dios nos ayude.';
+
+  const dias = diasParaMundial();
+  document.getElementById('mundial-dias').textContent = dias > 0 ? dias : '¡HOY!';
+  const mundialSubs = [
+    'El video número ' + randInt(40,80) + ' de cuenta regresiva fue grabado con mucha ilusión.',
+    'Arrancaron los videos desde los 100 días. Falta mucho todavía. Mucho.',
+    'El equipo sigue grabando. La fecha se acerca. Muy despacio, pero se acerca.',
+    'Cada día que pasa es un video nuevo. La energía del equipo es admirable.',
+    'El contador baja. Lento. Pero baja. El Mundial va a llegar, prometido.',
+  ];
+  document.getElementById('mundial-sub').textContent = rand(mundialSubs);
+}
+
+function actualizarFecha() {
+  const now = new Date();
+  const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const str = dias[now.getDay()] + ' ' + now.getDate() + ' de ' + meses[now.getMonth()];
+  const hora = now.toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'});
+  document.getElementById('date-badge').innerHTML = '<strong>' + str + '</strong><br>' + hora;
+}
+
+let switcherStart = Date.now();
+function actualizarSwitcher() {
+  const diff = Math.floor((Date.now() - switcherStart) / 1000);
+  const h = Math.floor(diff / 3600);
+  const m = Math.floor((diff % 3600) / 60);
+  const s = diff % 60;
+  const fmt = n => String(n).padStart(2,'0');
+  document.getElementById('switcher-time').textContent = fmt(h) + ':' + fmt(m) + ':' + fmt(s);
+  const mins = Math.floor(diff / 60);
+  document.getElementById('switcher-sub').textContent =
+    mins < 3 ? 'Sensación: llevan 2 horas acá adentro.' :
+    mins < 10 ? 'Sensación: ya va por la mitad del turno.' :
+    mins < 25 ? 'Sensación: llevan un día entero.' :
+    'Sensación: llevan 3 días sin salir. El mundo exterior ya no existe.';
+}
+
+generarDia();
+actualizarFecha();
+setInterval(actualizarFecha, 30000);
+setInterval(actualizarSwitcher, 1000);
+</script>
+</body>
+</html>
